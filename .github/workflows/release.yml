@@ -12,8 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Zip the skill folder
-        run: zip -r dota-draft.zip dota-draft
+        with:
+          path: dota-draft
+      - name: Zip the skill (folder name must stay dota-draft)
+        run: zip -r dota-draft.zip dota-draft -x "dota-draft/.git/*" "dota-draft/.github/*"
       - name: Attach zip to the release
         uses: softprops/action-gh-release@v2
         with:

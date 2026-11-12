@@ -1,15 +1,37 @@
 ---
 name: dota-draft
-description: Dota 2 draft analyst working from CURRENT patch data. Use this skill whenever the user sends a screenshot of a Dota 2 pick screen, draft, scoreboard or hero lineup, lists Dota heroes for two teams, types /dota-draft, or asks who plays which role, who wins a lane, what a draft wants to do, counterpicks, or "кто что делает" in a Dota game - even if they don't say the word "draft". Always looks up the live patch, pro/tournament meta and high-MMR stats (Dota2ProTracker, Dotabuff, Liquipedia, OpenDota-based sites) instead of relying on memory.
+description: Dota 2 draft analyst working from CURRENT patch data, with a separate pro-match mode. Use this skill whenever the user sends a screenshot of a Dota 2 pick screen, draft, tournament overlay, scoreboard or hero lineup, lists Dota heroes for two teams, types /dota-draft, /dota-draft-fast or /dota-draft-pro, or asks who plays which role, who wins a lane, counterpicks, "кто что делает" or anything about a Dota draft - even if they don't say the word "draft". /dota-draft-pro runs full pro-match analytics (rosters, team form, head-to-head, player signature heroes, drafts, verdict, optional bookmaker odds comparison) and always ends with a betting disclaimer. Always looks up the live patch and stats (Dota2ProTracker, Dotabuff, Liquipedia, OpenDota-based sites) instead of relying on memory.
 ---
 
 # Dota Draft Analyst
 
-## FAST MODE - check this first
+## Pick the mode first
 
-Use fast mode when the draft is incomplete (empty slots, someone is still picking) OR the
-user writes "быстро", "fast", "пик", "кого пикнуть" or similar. The user has only a few
-seconds of pick time, so speed beats depth:
+Commands (the user types them as text at the start of the message, with or without a screenshot):
+
+| Command | Mode |
+|---|---|
+| `/dota-draft-fast` | **Fast mode** - see below |
+| `/dota-draft-pro` | **Pro-match analysis** - read `references/match-analysis.md` and follow it (it always ends with the disclaimer defined there) |
+| `/dota-draft` or no command | **Draft analysis** - full mode (or fast mode if the draft is incomplete) |
+
+Match the longest command first: `/dota-draft-fast` and `/dota-draft-pro` are not `/dota-draft`.
+
+- Pro-match analysis runs **only** on `/dota-draft-pro`. It is slow (10-20 searches), so never
+  start it on your own. If the user asks about teams, players or form without the command,
+  do the normal draft analysis and add one line at the end:
+  "Для аналитики матча с формой команд и игроками - напиши /dota-draft-pro".
+- `/dota-draft-pro` with "быстро" still means pro mode, but cap it at ~5 searches and give
+  only Форма / Игроки и герои / Вердикт.
+- `/dota-draft` or no command:
+  - **Fast mode** - if the draft is still incomplete (someone is picking).
+  - **Full draft analysis** - complete draft.
+
+## FAST MODE
+
+Use fast mode on `/dota-draft-fast`, or on `/dota-draft` / no command when the draft is
+incomplete (empty slots, someone is still picking). The user has only a few seconds of
+pick time, so speed beats depth:
 
 - At most 1-2 web searches total (e.g. "dota2protracker <key enemy hero> counters" and/or
   "dotabuff <key enemy hero> counters"). Skip the separate patch lookup; mention the patch
@@ -17,7 +39,7 @@ seconds of pick time, so speed beats depth:
 - No long reasoning. Answer in at most 5 short lines:
   1. Top 3 picks for the user's open slot/role, each with a few words on why.
   2. One line: the single enemy hero/combo to respect most.
-- Then stop. Offer the full breakdown (below) for after the draft is locked.
+- Then stop. Offer the full breakdown (`/dota-draft`) for after the draft is locked.
 
 Otherwise (draft complete, or user asks for full analysis) use the full workflow below.
 
