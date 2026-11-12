@@ -39,7 +39,7 @@
 ### Claude Code
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/dota-draft.git ~/.claude/skills/dota-draft
+git clone https://github.com/LargeFlyWeight/dota2-draft-analysis-skill ~/.claude/skills/dota-draft
 ```
 
 ### Структура
